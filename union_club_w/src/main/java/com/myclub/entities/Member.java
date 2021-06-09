@@ -14,8 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name="member")
 public class Member {
@@ -52,7 +50,6 @@ public class Member {
     
     // mappedBy 애트리뷰트는 ClubVO 클래스에서 다대다 관계를 제공하는 애트리뷰트를 말함.
     // 즉, ClubVO 클래스에서 외래키 역할을 하는 members 애트리뷰트
-    @JsonIgnore
     @ManyToMany(
         fetch = FetchType.LAZY,
         cascade = CascadeType.ALL

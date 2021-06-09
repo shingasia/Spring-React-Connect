@@ -15,8 +15,23 @@ import org.springframework.stereotype.Repository;
 public interface ApplicationListRepository extends JpaRepository<ApplicationList, ApplicationListKey> {
     
     List<ApplicationList> findByKey(ApplicationListKey key);
-    List<ApplicationList> findByCname(Club cname);
     List<ApplicationList> findByMid(Member mid);
+    List<ApplicationList> findByCname(Club cname);
+    boolean existsByKey(ApplicationListKey key);
+    
+    
+    
+
+    // Query 애너테이션으로 JPQL 또는 네이티브 SQL 쿼리를 사용해보자
+
+    // @Query("SELECT u FROM User u WHERE u.status = ?1 and u.name = ?2")
+    // User findUserByStatusAndName(Integer status, String name);
+
+    // @Query(
+    //     value = "SELECT * FROM Users ORDER BY id", 
+    //     countQuery = "SELECT count(*) FROM Users", 
+    //     nativeQuery = true)
+    // Page<User> findAllUsersWithPagination(Pageable pageable);
 
     // @Override
     // default Optional<ApplicationList> findById(ApplicationListKey id) {

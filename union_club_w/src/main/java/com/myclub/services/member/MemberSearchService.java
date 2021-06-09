@@ -1,5 +1,6 @@
 package com.myclub.services.member;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.myclub.config.RepositoriesConfig;
@@ -31,18 +32,25 @@ public class MemberSearchService {
     }
     
     // ID, PASSWORD로 검색
+    // JPA 모듈은 쿼리를 문자열로 수동 정의하거나 메서드 이름에서 파생되도록 지원합니다.
     public Member searchMemberByIdAndPassword(String id, String password){
-        Member member=null;
-        try{
-            member=memberRepository.findById(id).get();
-        }catch(NoSuchElementException e){
+        List<Member> mlist= memberRepository.findByIdAndPassword(id, password);
+        if(mlist.size() < 1){
             throw new MemberNotFoundException();
         }
+        return mlist.get(0);
         
-        if(!member.getPassword().equals(password)){
-            throw new IdAndPasswordNotMatchException();
-        }
-        return member;
+        // Member member=null;
+        // try{
+        //     member=memberRepository.findById(id).get();
+        // }catch(NoSuchElementException e){
+        //     throw new MemberNotFoundException();
+        // }
+        
+        // if(!member.getPassword().equals(password)){
+        //     throw new IdAndPasswordNotMatchException();
+        // }
+        // return member;
     }
 
 }

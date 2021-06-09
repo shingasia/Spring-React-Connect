@@ -26,7 +26,7 @@ public class MemberLoginController {
 
 
     @PostMapping(path="/member/loginmember", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Member login(@RequestBody Map<String, Object> params, HttpSession session){
+    public Member loginCtl(@RequestBody Map<String, Object> params, HttpSession session){
         // System.out.println(params.getClass().getName()); //java.util.LinkedHashMap
         // System.out.println(params.keySet()); // [id, password]
         Member mem=memberSearchService.searchMemberByIdAndPassword(params.get("id")+"", params.get("password")+"");

@@ -41,7 +41,7 @@ public class ApplyClubService {
         if(list.size()> 0){
             throw new PresidentApplyedOtherClubException();
         }
-
+        
         newApply.setMid(member);
         newApply.setCname(club);
         newApply.setTime("hhhhh");
@@ -49,11 +49,13 @@ public class ApplyClubService {
         
         ApplicationListKey newKey=new ApplicationListKey(member.getId(), club.getName());
         // 이미 신청했으면
-        boolean applied = applicationListRepository.existsById(newKey);
+        boolean applied = applicationListRepository.existsByKey(newKey);
 
         if(applied){
             throw new AlreadyAppliedException();
         }
+
+        newApply.setKey(newKey);
         ApplicationList result = applicationListRepository.save(newApply);
         return result;
     }

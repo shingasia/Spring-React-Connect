@@ -1,6 +1,8 @@
 package com.myclub.services.member;
 
-
+// serialization and deserialization
+// @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+// @JsonNaming, @JsonProperty, @JsonAlias, @JsonIgnore, @JsonInclude 에 대해 알아보자
 public class MemberModifyInfoRequest {
     
     private String previousId;
@@ -100,5 +102,14 @@ public class MemberModifyInfoRequest {
         this.newEmail = newEmail;
     }
 
+
+    @Override
+    public String toString() {
+        return "previousId ="+ previousId+ ", "+"newId = "+newId+", "+
+            "previousPassword ="+ previousPassword+ ", "+"newPassword = "+newPassword+", "+
+            "previousName ="+ previousName+ ", "+"newName = "+newName+", "+
+            "previousAddress ="+ previousAddress+ ", "+"newAddress = "+newAddress+", "+
+            "previousEmail ="+ previousEmail+ ", "+"newEmail = "+newEmail;
+    }
 
 }

@@ -5,6 +5,7 @@ import com.myclub.exceptions.member.IdAndPasswordNotMatchException;
 import com.myclub.exceptions.member.MemberAlreadyExistException;
 import com.myclub.exceptions.member.MemberNotFoundException;
 import com.myclub.exceptions.member.PasswordAndPasswordConfirmDifferentException;
+import com.myclub.exceptions.member.PreviousInformationIsInaccurateException;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -43,6 +44,12 @@ public class HandleMemberExceptions {
     }
 
     // 회원 정보 변경시 Exceptions 체크
+    @ExceptionHandler({PreviousInformationIsInaccurateException.class})
+    public ErrorMessage handleModifyException(){
+        ErrorMessage msg = new ErrorMessage();
+        msg.setMessage("기존 정보를 다시 입력하세요.");
+        return msg;
+    }
 
 }
 class ErrorMessage {

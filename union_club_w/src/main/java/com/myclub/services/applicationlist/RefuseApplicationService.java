@@ -9,33 +9,29 @@ import com.myclub.repositories.ApplicationListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Service("cancelApplyClubService")
+// 회장은 지원자의 신청을 거절할 수 있다
+@Service(value="refuseApplicationService")
 @Import(RepositoriesConfig.class)
-public class CancelApplyClubService {
+public class RefuseApplicationService {
     
     @Autowired
     private ApplicationListRepository applicationListRepository;
 
-
-    @Transactional
-    public ApplicationList cancelApplyClub(String mid, String cname){
-        ApplicationList cancelApply=null;
+    public ApplicationList refuseApplication(String mid, String cname){
+        ApplicationList refuseApply = null;
         ApplicationListKey key = new ApplicationListKey(mid, cname);
 
-        // ApplicationList cancelApply = applicationListRepository.findByKey(key); // 복합키로 여러개 찾을 때
 
-        // cancelApply = applicationListRepository.findById(key).get();
-        cancelApply = applicationListRepository.findByKey(key).get(0);
-
-        if(cancelApply==null){
+        refuseApply = applicationListRepository.findByKey(key).get(0);
+        if(refuseApply == null){
             throw new ApplicationNotFoundException();
         }else{
-            applicationListRepository.delete(cancelApply);
+            applicationListRepository.delete(refuseApply);
         }
-        return cancelApply;
+        
+        return refuseApply;
     }
-    
+
 
 }

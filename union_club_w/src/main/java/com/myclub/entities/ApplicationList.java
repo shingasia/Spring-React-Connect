@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="application_list")
 public class ApplicationList {
 
-    @EmbeddedId
+    @EmbeddedId // @EmbeddedId, @Embedded, @AttributeOverrieds 각각 어떤게 다른걸까
     private ApplicationListKey key = new ApplicationListKey(); //이 필드가 null이 아니기만 하면 된다.
 
     @ManyToOne

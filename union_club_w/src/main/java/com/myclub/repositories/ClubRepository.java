@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface ClubRepository extends JpaRepository<Club, String> {
     
     List<Club> findByPresident(String president);
+
 }

@@ -24,7 +24,7 @@ public class MemberModifyInfoService {
 
 
     @Transactional(rollbackFor = {SQLException.class})
-    public Member modifyMemberInfo(MemberModifyInfoRequest request){
+    public Member modifyMemberInfoSvc(MemberModifyInfoRequest request){
         Member previousInfo = null;
 
         try{
@@ -64,7 +64,7 @@ public class MemberModifyInfoService {
         if(!matcher.matches()){ //이메일이 정규표현식에 어긋날 때
             throw new EmailRegexNotMatchException();
         }
-
+        // 아이디(primary key)가 바뀌면 update가 아니라 insert로 동작한다
         memberRepository.save(newInfo); // update
         return newInfo;
     }

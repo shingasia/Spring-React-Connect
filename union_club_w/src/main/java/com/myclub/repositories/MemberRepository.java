@@ -28,10 +28,11 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     // <- 거의 모든 메소드
 
     Optional<Member> findById(String id);
-    List<Member> findByName(String name); //findByEmail, findByAddress 도 당연히 있음
+    List<Member> findByName(String name);
     <S extends Member> S save(S entity);
     void delete(Member entity);
     List<Member> findAll();
     boolean existsById(String id);
-    
+
+
 }
