@@ -9,6 +9,7 @@ import com.myclub.repositories.ApplicationListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 // 회장은 지원자의 신청을 거절할 수 있다
 @Service(value="refuseApplicationService")
@@ -18,12 +19,16 @@ public class RefuseApplicationService {
     @Autowired
     private ApplicationListRepository applicationListRepository;
 
+    @Transactional
     public ApplicationList refuseApplication(String mid, String cname){
         ApplicationList refuseApply = null;
         ApplicationListKey key = new ApplicationListKey(mid, cname);
 
+        
+        // refuseApply = applicationListRepository.findByKey(key).get(0);
+        // refuseApply = applicationListRepository.findByKey(mid, cname);
 
-        refuseApply = applicationListRepository.findByKey(key).get(0);
+        refuseApply = applicationListRepository.findById(key).get();
         if(refuseApply == null){
             throw new ApplicationNotFoundException();
         }else{

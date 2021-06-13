@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -18,12 +19,14 @@ public class ApplicationList {
     @ManyToOne
     @MapsId("mid") // ApplicationListKey.mid
     @JoinColumn(name="member_id")
-    private Member mid;
+    private Member member;
     
     @ManyToOne
     @MapsId("cname") // ApplicationListKey.cname
     @JoinColumn(name="club_name")
-    private Club cname;
+    // @JoinTable(name = "application_list",
+    //         joinColumns = @JoinColumn(name="club_name"))
+    private Club club;
 
     /*
     @MapsId means that we tie those fields to a part of the key, and they're the foreign keys of a many-to-one relationship. 
@@ -42,20 +45,21 @@ public class ApplicationList {
         this.key = key;
     }
 
-    public Member getMid() {
-        return mid;
+    
+    public Member getMember() {
+        return member;
     }
 
-    public void setMid(Member mid) {
-        this.mid = mid;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
-    public Club getCname() {
-        return cname;
+    public Club getClub() {
+        return club;
     }
 
-    public void setCname(Club cname) {
-        this.cname = cname;
+    public void setClub(Club club) {
+        this.club = club;
     }
 
     public String getTime() {

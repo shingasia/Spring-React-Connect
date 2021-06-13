@@ -9,36 +9,36 @@ import javax.persistence.Embeddable;
 public class MemberClubPairKey implements Serializable {
     
     @Column(name="member_id")
-    private String memberId;
+    private String mid;
 
     @Column(name="club_name")
-    private String clubName;
+    private String cname;
     
     // Constructor
     public MemberClubPairKey() {
     }
 
-    public MemberClubPairKey(String memberId, String clubName) {
-        this.memberId = memberId;
-        this.clubName = clubName;
+    public MemberClubPairKey(String mid, String cname) {
+        this.mid = mid;
+        this.cname = cname;
     }
 
 
     // getter, setter
-    public String getMemberId() {
-        return memberId;
+    public String getMid() {
+        return mid;
     }
 
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
+    public void setMid(String mid) {
+        this.mid = mid;
     }
 
-    public String getClubName() {
-        return clubName;
+    public String getCname() {
+        return cname;
     }
 
-    public void setClubName(String clubName) {
-        this.clubName = clubName;
+    public void setCname(String cname) {
+        this.cname = cname;
     }
 
     // hashCode(), equals() 구현
@@ -50,12 +50,11 @@ public class MemberClubPairKey implements Serializable {
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if(obj instanceof MemberClubPairKey){
-            final MemberClubPairKey other = (MemberClubPairKey)obj;
-            return (this.memberId.equals(other.getMemberId()) && this.clubName.equals(other.getClubName()));
-        }
-        return false;
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+        MemberClubPairKey other = (MemberClubPairKey) obj;
+        return (this.mid.equals(other.getMid()) && this.cname.equals(other.getCname()));
     }
 
 }

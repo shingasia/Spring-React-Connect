@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -32,16 +33,29 @@ public class Club {
     @Column(name="introduction")
     private String introduction;
 
+    // Member와 Club 둘다 @JoinTable로 단방향 관계 2개로 연결되어 있다. mappedBy 속성이 없으므로 양방향 관계가 아니다.
+    // member_club 테이블은 단순히 다대다를 연결을 위한 테이블이다. A와 B의 일대일 관계도 @JoinTable을 사용하려면 DB에 a_b 테이블을 만들어야 한다.
     @ManyToMany(
-        fetch = FetchType.LAZY,
-        cascade = CascadeType.ALL
+        targetEntity = Member.class, 
+        fetch = FetchType.LAZY, 
+        cascade = CascadeType.ALL 
     )
-    @JoinTable(name="member_club",
+    @JoinTable(name = "member_club", 
             joinColumns = @JoinColumn(name="club_name"),
             inverseJoinColumns = @JoinColumn(name="member_id"))
     private Set<Member> members = new HashSet<>();
 
 
+
+    // @OneToMany(mappedBy = "cname") // targetEntity = ApplicationList.class
+    // private Set<ApplicationList> applicationLists;
+
+    
+    // @OneToMany(mappedBy = "cname")
+    // private Set<MemberClubPair> memberClubPairs;
+
+
+    // Constructors
     public Club() { }
 
     public Club(String name, String president, String thema, String introduction){
@@ -51,6 +65,9 @@ public class Club {
         this.introduction=introduction;
     }
 
+
+
+    // getter, setter
     public String getName() {
         return name;
     }
@@ -91,6 +108,6 @@ public class Club {
         this.members = members;
     }
 
-
+    
 
 }

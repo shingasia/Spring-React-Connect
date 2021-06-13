@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -34,7 +35,28 @@ public class Member {
     @Column(name="email")
     private String email;
 
+    // Member와 Club 둘다 @JoinTable로 단방향 관계 2개로 연결되어 있다. mappedBy 속성이 없으므로 양방향 관계가 아니다.
+    @ManyToMany(
+        targetEntity = Club.class, 
+        fetch = FetchType.LAZY, 
+        cascade = CascadeType.ALL 
+    )
+    @JoinTable(name="member_club", 
+            joinColumns = @JoinColumn(name="member_id"), 
+            inverseJoinColumns = @JoinColumn(name="club_name"))
+    private Set<Club> clubs = new HashSet<>();
 
+
+    // // ApplicationList 엔티티와 일대다 양방향 매핑
+    // @OneToMany(mappedBy = "mid", targetEntity = ApplicationList.class)
+    // private Set<ApplicationList> applicationLists;
+
+    // // MemberClubPair 엔티티와 일대다 양방향 매핑
+    // @OneToMany(mappedBy = "mid", targetEntity = MemberClubPair.class)
+    // private Set<MemberClubPair> memberClubPairs;
+
+
+    // Constructors
     public Member() { }
 
     public Member(String id, String password, String name, String address, String email) {
@@ -46,20 +68,7 @@ public class Member {
     }
 
 
-
-    
-    // mappedBy 애트리뷰트는 ClubVO 클래스에서 다대다 관계를 제공하는 애트리뷰트를 말함.
-    // 즉, ClubVO 클래스에서 외래키 역할을 하는 members 애트리뷰트
-    @ManyToMany(
-        fetch = FetchType.LAZY,
-        cascade = CascadeType.ALL
-    )
-    @JoinTable(name="member_club",
-            joinColumns = @JoinColumn(name="member_id"),
-            inverseJoinColumns = @JoinColumn(name="club_name"))
-    private Set<Club> clubs = new HashSet<>();
-
-
+    // getter, setter
     public String getId() {
         return id;
     }

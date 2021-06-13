@@ -41,7 +41,7 @@ public class MemberRegisterService {
         }
 
         // 이메일이 이상할 때
-        Pattern pattern = Pattern.compile("[a-zA-Z0-9]+@[a-zA-Z]+\\.[a-zA-Z]+(\\.[a-zA-Z]+)?"); //~.com, ~.ac.kr 등
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9]+@[a-zA-Z]+\\.[a-zA-Z]+");
         Matcher matcher = pattern.matcher(memberRequest.getEmail());
         if(!matcher.matches()){ //이메일이 정규표현식에 어긋날 때
             throw new EmailRegexNotMatchException();

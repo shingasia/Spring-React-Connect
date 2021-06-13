@@ -42,14 +42,14 @@ public class ApplyClubService {
             throw new PresidentApplyedOtherClubException();
         }
         
-        newApply.setMid(member);
-        newApply.setCname(club);
+        newApply.setMember(member);
+        newApply.setClub(club);
         newApply.setTime("hhhhh");
 
         
         ApplicationListKey newKey=new ApplicationListKey(member.getId(), club.getName());
         // 이미 신청했으면
-        boolean applied = applicationListRepository.existsByKey(newKey);
+        boolean applied = applicationListRepository.existsById(newKey);
 
         if(applied){
             throw new AlreadyAppliedException();

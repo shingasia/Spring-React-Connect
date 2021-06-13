@@ -1,8 +1,11 @@
 package com.myclub.services.applicationlist;
 
+import java.util.NoSuchElementException;
+
 import com.myclub.config.RepositoriesConfig;
 import com.myclub.entities.ApplicationList;
 import com.myclub.entities.ApplicationListKey;
+import com.myclub.exceptions.applicationlist.AlreadyAppliedException;
 import com.myclub.exceptions.applicationlist.ApplicationNotFoundException;
 import com.myclub.repositories.ApplicationListRepository;
 
@@ -24,10 +27,17 @@ public class CancelApplyClubService {
         ApplicationList cancelApply=null;
         ApplicationListKey key = new ApplicationListKey(mid, cname);
 
-        // ApplicationList cancelApply = applicationListRepository.findByKey(key); // 복합키로 여러개 찾을 때
+        
+        // if(applicationListRepository.findByKey(key).size()>=2){
+        //     throw new AlreadyAppliedException();
+        // }
+        try{
+            cancelApply = applicationListRepository.findById(key).get();
+        }catch(NoSuchElementException e){
+            throw new ApplicationNotFoundException();
+        }
 
-        // cancelApply = applicationListRepository.findById(key).get();
-        cancelApply = applicationListRepository.findByKey(key).get(0);
+
 
         if(cancelApply==null){
             throw new ApplicationNotFoundException();

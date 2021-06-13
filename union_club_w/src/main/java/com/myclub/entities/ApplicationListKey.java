@@ -38,7 +38,7 @@ public class ApplicationListKey implements Serializable {
         return mid;
     }
 
-    public void setMid(final String mid) {
+    public void setMid(String mid) {
         this.mid = mid;
     }
 
@@ -46,19 +46,19 @@ public class ApplicationListKey implements Serializable {
         return cname;
     }
 
-    public void setCname(final String cname) {
+    public void setCname(String cname) {
         this.cname = cname;
     }
 
     // hashCode(), equals() 구현
     // hashCode() 리턴값이 같아도 equals()의 리턴값이 false면 다른 객체가 된다.
+
     @Override
-    public boolean equals(final Object obj) {
-        if(obj instanceof ApplicationListKey){
-            final ApplicationListKey other = (ApplicationListKey)obj;
-            return (this.mid.equals(other.getMid()) && this.cname.equals(other.getCname()));
-        }
-        return false;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ApplicationListKey other = (ApplicationListKey) obj;
+        return (this.mid.equals(other.getMid()) && this.cname.equals(other.getCname()));
     }
 
     @Override
